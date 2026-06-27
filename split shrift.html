@@ -1,0 +1,777 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+  <title>SplitThrift Premium</title>
+
+  <script src="https://cdn.tailwindcss.com"></script>
+
+</head>
+
+<body class="bg-gradient-to-r from-indigo-400 via-purple-400 to-pink-400 min-h-screen font-sans">
+
+<!-- LOGIN PAGE -->
+
+<div id="loginPage" class="flex items-center justify-center min-h-screen p-5">
+
+  <div class="bg-white w-full max-w-md rounded-3xl shadow-2xl p-10">
+
+    <div class="text-center">
+
+      <h1 class="text-5xl font-bold text-purple-700">
+        SplitThrift
+      </h1>
+
+      <p class="text-gray-500 mt-3">
+        Smart Expense Splitter
+      </p>
+
+    </div>
+
+    <input
+      id="loginEmail"
+      type="email"
+      placeholder="Enter Email"
+      class="w-full border-2 border-purple-200 focus:border-purple-500 outline-none p-4 rounded-2xl mt-8"
+    >
+
+    <input
+      id="loginPassword"
+      type="password"
+      placeholder="Enter Password"
+      class="w-full border-2 border-purple-200 focus:border-purple-500 outline-none p-4 rounded-2xl mt-4"
+    >
+
+    <button
+      onclick="login()"
+      class="w-full bg-purple-600 hover:bg-purple-700 transition text-white py-4 rounded-2xl mt-6 text-lg font-bold">
+
+      Login
+
+    </button>
+
+    <p class="text-center mt-6 text-gray-600">
+
+      Don’t have an account?
+
+      <span
+        onclick="showSignup()"
+        class="text-purple-700 font-bold cursor-pointer">
+
+        Sign Up
+
+      </span>
+
+    </p>
+
+  </div>
+
+</div>
+
+<!-- SIGNUP PAGE -->
+
+<div id="signupPage" class="hidden items-center justify-center min-h-screen p-5">
+
+  <div class="bg-white w-full max-w-md rounded-3xl shadow-2xl p-10">
+
+    <div class="text-center">
+
+      <h1 class="text-5xl font-bold text-blue-700">
+        Create Account
+      </h1>
+
+      <p class="text-gray-500 mt-3">
+        Join SplitThrift
+      </p>
+
+    </div>
+
+    <input
+      id="signupName"
+      type="text"
+      placeholder="Full Name"
+      class="w-full border-2 border-blue-200 focus:border-blue-500 outline-none p-4 rounded-2xl mt-8"
+    >
+
+    <input
+      id="signupEmail"
+      type="email"
+      placeholder="Email"
+      class="w-full border-2 border-blue-200 focus:border-blue-500 outline-none p-4 rounded-2xl mt-4"
+    >
+
+    <input
+      id="signupPassword"
+      type="password"
+      placeholder="Password"
+      class="w-full border-2 border-blue-200 focus:border-blue-500 outline-none p-4 rounded-2xl mt-4"
+    >
+
+    <button
+      onclick="signup()"
+      class="w-full bg-blue-600 hover:bg-blue-700 transition text-white py-4 rounded-2xl mt-6 text-lg font-bold">
+
+      Create Account
+
+    </button>
+
+    <p class="text-center mt-6 text-gray-600">
+
+      Already have account?
+
+      <span
+        onclick="showLogin()"
+        class="text-blue-700 font-bold cursor-pointer">
+
+        Login
+
+      </span>
+
+    </p>
+
+  </div>
+
+</div>
+
+<!-- DASHBOARD -->
+
+<div id="dashboardPage" class="hidden">
+
+  <!-- NAVBAR -->
+
+  <nav class="bg-white shadow-xl p-5 flex justify-between items-center sticky top-0 z-50">
+
+    <h1 class="text-4xl font-bold text-purple-700">
+      SplitThrift
+    </h1>
+
+    <div class="flex items-center gap-4">
+
+      <h2
+        id="welcomeUser"
+        class="text-lg font-bold text-gray-700">
+      </h2>
+
+      <button
+        onclick="logout()"
+        class="bg-red-500 hover:bg-red-600 text-white px-6 py-3 rounded-2xl font-bold">
+
+        Logout
+
+      </button>
+
+    </div>
+
+  </nav>
+
+  <!-- MAIN CONTENT -->
+
+  <div class="p-6 md:p-10">
+
+    <!-- TOP CARDS -->
+
+    <div class="grid md:grid-cols-4 gap-6">
+
+      <div class="bg-white rounded-3xl p-6 shadow-2xl">
+
+        <p class="text-gray-500 text-lg">
+          Total Expense
+        </p>
+
+        <h1
+          id="totalExpense"
+          class="text-5xl font-bold text-purple-700 mt-4">
+
+          ₹0
+
+        </h1>
+
+      </div>
+
+      <div class="bg-white rounded-3xl p-6 shadow-2xl">
+
+        <p class="text-gray-500 text-lg">
+          Total Savings
+        </p>
+
+        <h1
+          id="totalSavings"
+          class="text-5xl font-bold text-green-600 mt-4">
+
+          ₹0
+
+        </h1>
+
+      </div>
+
+      <div class="bg-white rounded-3xl p-6 shadow-2xl">
+
+        <p class="text-gray-500 text-lg">
+          Transactions
+        </p>
+
+        <h1
+          id="transactionCount"
+          class="text-5xl font-bold text-blue-600 mt-4">
+
+          0
+
+        </h1>
+
+      </div>
+
+      <div class="bg-white rounded-3xl p-6 shadow-2xl">
+
+        <p class="text-gray-500 text-lg">
+          Highest Payment
+        </p>
+
+        <h1
+          id="highestPayment"
+          class="text-5xl font-bold text-orange-500 mt-4">
+
+          ₹0
+
+        </h1>
+
+      </div>
+
+    </div>
+
+    <!-- ADD SAVINGS -->
+
+    <div class="bg-white rounded-3xl p-8 shadow-2xl mt-10">
+
+      <h1 class="text-4xl font-bold text-green-600">
+        Monthly Savings
+      </h1>
+
+      <input
+        id="savingInput"
+        type="number"
+        placeholder="Enter Saving Amount"
+        class="w-full border-2 border-green-200 focus:border-green-500 outline-none p-4 rounded-2xl mt-6"
+      >
+
+      <button
+        onclick="addSavings()"
+        class="bg-green-600 hover:bg-green-700 transition text-white px-8 py-4 rounded-2xl mt-5 w-full font-bold">
+
+        Add Savings
+
+      </button>
+
+      <div class="w-full bg-gray-200 rounded-full h-5 mt-8">
+
+        <div
+          id="savingBar"
+          class="bg-green-500 h-5 rounded-full"
+          style="width:0%">
+        </div>
+
+      </div>
+
+    </div>
+
+    <!-- SPLIT EXPENSE -->
+
+    <div class="bg-white rounded-3xl p-8 shadow-2xl mt-10">
+
+      <h1 class="text-4xl font-bold text-purple-700">
+        Split Expense
+      </h1>
+
+      <input
+        id="splitAmount"
+        type="number"
+        placeholder="Enter Total Amount"
+        class="w-full border-2 border-purple-200 focus:border-purple-500 outline-none p-4 rounded-2xl mt-6"
+      >
+
+      <input
+        id="splitMembers"
+        type="number"
+        placeholder="Number Of Members"
+        class="w-full border-2 border-purple-200 focus:border-purple-500 outline-none p-4 rounded-2xl mt-4"
+      >
+
+      <button
+        onclick="splitExpense()"
+        class="bg-purple-700 hover:bg-purple-800 transition text-white px-8 py-4 rounded-2xl mt-5 w-full font-bold">
+
+        Split Amount
+
+      </button>
+
+      <div
+        id="splitResult"
+        class="mt-8 text-3xl font-bold text-green-600">
+      </div>
+
+    </div>
+
+    <!-- PAYMENT SECTION -->
+
+    <div class="bg-white rounded-3xl p-8 shadow-2xl mt-10 mb-20">
+
+      <h1 class="text-4xl font-bold text-blue-700">
+        Payment Tracking
+      </h1>
+
+      <div class="grid md:grid-cols-2 gap-5 mt-8">
+
+        <input
+          id="payer"
+          type="text"
+          placeholder="Person Name"
+          class="border-2 border-blue-200 focus:border-blue-500 outline-none p-4 rounded-2xl"
+        >
+
+        <input
+          id="purpose"
+          type="text"
+          placeholder="Purpose"
+          class="border-2 border-blue-200 focus:border-blue-500 outline-none p-4 rounded-2xl"
+        >
+
+        <input
+          id="paidAmount"
+          type="number"
+          placeholder="Paid Amount"
+          class="border-2 border-blue-200 focus:border-blue-500 outline-none p-4 rounded-2xl"
+        >
+
+        <input
+          id="totalAmount"
+          type="number"
+          placeholder="Total Bill Amount"
+          class="border-2 border-blue-200 focus:border-blue-500 outline-none p-4 rounded-2xl"
+        >
+
+        <select
+          id="paymentMethod"
+          class="border-2 border-blue-200 focus:border-blue-500 outline-none p-4 rounded-2xl">
+
+          <option>Cash</option>
+          <option>UPI</option>
+          <option>Google Pay</option>
+          <option>PhonePe</option>
+
+        </select>
+
+        <input
+          id="paymentDate"
+          type="date"
+          class="border-2 border-blue-200 focus:border-blue-500 outline-none p-4 rounded-2xl"
+        >
+
+      </div>
+
+      <button
+        onclick="addPayment()"
+        class="bg-blue-700 hover:bg-blue-800 transition text-white px-8 py-4 rounded-2xl mt-6 w-full font-bold">
+
+        Add Payment
+
+      </button>
+
+      <!-- TABLE -->
+
+      <div class="overflow-x-auto mt-10">
+
+        <table class="w-full">
+
+          <thead>
+
+            <tr class="bg-blue-100 text-center">
+
+              <th class="p-4">Name</th>
+              <th class="p-4">Purpose</th>
+              <th class="p-4">Paid</th>
+              <th class="p-4">Total</th>
+              <th class="p-4">Remaining</th>
+              <th class="p-4">Method</th>
+              <th class="p-4">Status</th>
+              <th class="p-4">Transaction IDs</th>
+              <th class="p-4">Delete</th>
+
+            </tr>
+
+          </thead>
+
+          <tbody id="paymentTable">
+
+          </tbody>
+
+        </table>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</div>
+
+<script>
+
+  let userEmail = "";
+  let userPassword = "";
+  let userName = "";
+
+  let totalExpense = 0;
+  let totalSavings = 0;
+  let transactionCount = 0;
+  let highestPayment = 0;
+
+  // SHOW SIGNUP
+
+  function showSignup(){
+
+    document.getElementById("loginPage").style.display = "none";
+
+    document.getElementById("signupPage").style.display = "flex";
+  }
+
+  // SHOW LOGIN
+
+  function showLogin(){
+
+    document.getElementById("signupPage").style.display = "none";
+
+    document.getElementById("loginPage").style.display = "flex";
+  }
+
+  // SIGNUP
+
+  function signup(){
+
+    let name =
+    document.getElementById("signupName").value;
+
+    let email =
+    document.getElementById("signupEmail").value;
+
+    let password =
+    document.getElementById("signupPassword").value;
+
+    if(name === "" || email === "" || password === ""){
+
+      alert("Fill all fields");
+      return;
+    }
+
+    userName = name;
+    userEmail = email;
+    userPassword = password;
+
+    alert("Account Created Successfully");
+
+    showLogin();
+  }
+
+  // LOGIN
+
+  function login(){
+
+    let email =
+    document.getElementById("loginEmail").value;
+
+    let password =
+    document.getElementById("loginPassword").value;
+
+    if(email === userEmail && password === userPassword){
+
+      document.getElementById("loginPage").style.display = "none";
+
+      document.getElementById("dashboardPage").style.display = "block";
+
+      document.getElementById("welcomeUser").innerHTML =
+      "Welcome, " + userName;
+
+    }
+    else{
+
+      alert("Invalid Email Or Password");
+    }
+  }
+
+  // LOGOUT
+
+  function logout(){
+
+    location.reload();
+  }
+
+  // ADD SAVINGS
+
+  function addSavings(){
+
+    let amount =
+    Number(document.getElementById("savingInput").value);
+
+    if(amount <= 0){
+
+      alert("Enter valid amount");
+      return;
+    }
+
+    totalSavings += amount;
+
+    document.getElementById("totalSavings").innerHTML =
+    "₹" + totalSavings;
+
+    let progress =
+    (totalSavings / 50000) * 100;
+
+    if(progress > 100){
+
+      progress = 100;
+    }
+
+    document.getElementById("savingBar").style.width =
+    progress + "%";
+
+    document.getElementById("savingInput").value = "";
+  }
+
+  // SPLIT EXPENSE
+
+  function splitExpense(){
+
+    let amount =
+    Number(document.getElementById("splitAmount").value);
+
+    let members =
+    Number(document.getElementById("splitMembers").value);
+
+    if(amount <= 0 || members <= 0){
+
+      alert("Enter valid details");
+      return;
+    }
+
+    let split =
+    amount / members;
+
+    document.getElementById("splitResult").innerHTML =
+
+    `
+      Total Amount : ₹${amount}
+      <br><br>
+
+      Members : ${members}
+      <br><br>
+
+      Each Person Pays :
+      ₹${split.toFixed(2)}
+    `;
+  }
+
+  // PAYMENT
+
+  function addPayment(){
+
+    let payer =
+    document.getElementById("payer").value;
+
+    let purpose =
+    document.getElementById("purpose").value;
+
+    let paid =
+    Number(document.getElementById("paidAmount").value);
+
+    let total =
+    Number(document.getElementById("totalAmount").value);
+
+    let method =
+    document.getElementById("paymentMethod").value;
+
+    if(
+      payer === "" ||
+      purpose === "" ||
+      paid <= 0 ||
+      total <= 0
+    ){
+
+      alert("Fill all fields");
+      return;
+    }
+
+    let key =
+    payer + "-" + purpose;
+
+    let existingRow =
+    document.getElementById(key);
+
+    let transactionId =
+    "TXN" + Math.floor(Math.random() * 1000000);
+
+    if(existingRow){
+
+      let oldPaid =
+      Number(existingRow.getAttribute("data-paid"));
+
+      let newPaid =
+      oldPaid + paid;
+
+      let remaining =
+      total - newPaid;
+
+      existingRow.setAttribute("data-paid", newPaid);
+
+      existingRow.children[2].innerHTML =
+      "₹" + newPaid;
+
+      existingRow.children[4].innerHTML =
+      "₹" + remaining;
+
+      existingRow.children[5].innerHTML +=
+      " + " + method;
+
+      existingRow.children[7].innerHTML +=
+      "<br>" + transactionId;
+
+      if(remaining <= 0){
+
+        existingRow.children[6].innerHTML =
+        "Successful";
+
+        existingRow.children[6].className =
+        "p-4 text-green-600 font-bold";
+      }
+      else{
+
+        existingRow.children[6].innerHTML =
+        "Pending ₹" + remaining;
+
+        existingRow.children[6].className =
+        "p-4 text-orange-500 font-bold";
+      }
+
+    }
+    else{
+
+      let remaining =
+      total - paid;
+
+      let status = "";
+      let color = "";
+
+      if(remaining <= 0){
+
+        status = "Successful";
+
+        color = "text-green-600";
+      }
+      else{
+
+        status =
+        "Pending ₹" + remaining;
+
+        color = "text-orange-500";
+      }
+
+      let row = `
+
+        <tr
+          id="${key}"
+          data-paid="${paid}"
+          class="text-center border-b">
+
+          <td class="p-4">${payer}</td>
+
+          <td class="p-4">${purpose}</td>
+
+          <td class="p-4 font-bold text-blue-600">
+            ₹${paid}
+          </td>
+
+          <td class="p-4">
+            ₹${total}
+          </td>
+
+          <td class="p-4 text-red-500 font-bold">
+            ₹${remaining}
+          </td>
+
+          <td class="p-4">
+            ${method}
+          </td>
+
+          <td class="p-4 font-bold ${color}">
+            ${status}
+          </td>
+
+          <td class="p-4 text-purple-600 font-bold">
+            ${transactionId}
+          </td>
+
+          <td class="p-4">
+
+            <button
+              onclick="deleteRow(this)"
+              class="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-xl">
+
+              Delete
+
+            </button>
+
+          </td>
+
+        </tr>
+
+      `;
+
+      document.getElementById("paymentTable").innerHTML += row;
+    }
+
+    totalExpense += paid;
+
+    document.getElementById("totalExpense").innerHTML =
+    "₹" + totalExpense;
+
+    transactionCount++;
+
+    document.getElementById("transactionCount").innerHTML =
+    transactionCount;
+
+    if(paid > highestPayment){
+
+      highestPayment = paid;
+
+      document.getElementById("highestPayment").innerHTML =
+      "₹" + highestPayment;
+    }
+
+    document.getElementById("payer").value = "";
+    document.getElementById("purpose").value = "";
+    document.getElementById("paidAmount").value = "";
+    document.getElementById("totalAmount").value = "";
+  }
+
+  // DELETE
+
+  function deleteRow(button){
+
+    button.parentElement.parentElement.remove();
+
+    transactionCount--;
+
+    if(transactionCount < 0){
+
+      transactionCount = 0;
+    }
+
+    document.getElementById("transactionCount").innerHTML =
+    transactionCount;
+  }
+
+</script>
+
+</body>
+</html>
